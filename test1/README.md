@@ -2,7 +2,7 @@
 
 > A Vue.js project
 
-最初にやることは INIT.md 参照
+最初にやることは MEMO.md 参照
 
 ## Build Setup
 
