@@ -2,6 +2,8 @@
 
 > A Vue.js project
 
+最初にやることは INIT.md 参照
+
 ## Build Setup
 
 ``` bash
