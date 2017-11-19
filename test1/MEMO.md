@@ -23,3 +23,6 @@ http://vuejs-templates.github.io/webpack/
 HtmlWebpackPluginを使う。  
 [参照](https://github.com/KosigayaSuguru/vue-test/commit/db363e6945f522631ac1fe9a15dcbcba20f9fb43)  
 
+> 単一ファイルコンポーネントの簡単なサンプル
+
+[参照](https://github.com/KosigayaSuguru/vue-test/commit/673b95a38bb5e0863c791c87baf4f34ac5c3978f)  
