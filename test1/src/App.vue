@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png"><br>
-
+    <Component1 props1='props1 Message' ></Component1>
+    <br>
     <router-link to="/">HelloWorld</router-link>
     <router-link to="/bar">Bar</router-link>
     
@@ -10,14 +11,17 @@
 </template>
 
 <script>
+import Component1 from '@/components/Component1'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: { Component1 }
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
