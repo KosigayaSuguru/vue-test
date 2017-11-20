@@ -1,7 +1,8 @@
 <template>
   <div>
     <div>{{ props1 }}</div>
-    <div>{{ message }}</div>
+    <div>{{ message1 }}</div>
+    <div>{{ message2 }}</div>
     <div>{{ computed1 }}</div>
   </div>
 </template>
@@ -9,15 +10,16 @@
 <script>
 export default {
   name: 'Component1',
-  props: ['props1'],
+  props: ['props1', 'props2'],
   data () {
     return {
-      message: 'messge property string in Compoment1'
+      message1: 'message1 property string in Compoment1',
+      message2: this.props2
     }
   },
   computed: {
     computed1 () {
-      return 'computed1:' + this.message + 'aaaaaaa'
+      return 'computed1:' + this.message1 + 'aaaaaaa'
     }
   }
 }

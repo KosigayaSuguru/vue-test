@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png"><br>
-    <Component1 props1='props1 Message' ></Component1>
+    <Component1 props1='props1 Message' props2="props2 Message" ></Component1>
     <br>
     <router-link to="/">HelloWorld</router-link>
     <router-link to="/bar">Bar</router-link>
