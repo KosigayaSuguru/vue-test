@@ -5,6 +5,7 @@
     <br>
     <router-link to="/">HelloWorld</router-link>
     <router-link to="/bar">Bar</router-link>
+    <router-link to="/Screen1">Screen1</router-link>
     
     <router-view/>
   </div>
