@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png"><br>
-    <Component1 props1='props1 Message' props2="props2 Message" ></Component1>
+    <Component1 props1='props1 Message' props2="props2 Message" ref="component1"></Component1>
     <br>
     <router-link to="/">HelloWorld</router-link>
     <router-link to="/bar">Bar</router-link>
-    <router-link to="/Screen1">Screen1</router-link>
+    <router-link to="/Screen1" ref="screen1">Screen1</router-link>
     
     <router-view/>
   </div>
