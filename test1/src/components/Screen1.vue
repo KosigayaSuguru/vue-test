@@ -1,40 +1,33 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <div v-html='sokuhou_json'></div>
+    <h2>{{ msg }}</h2>
+    <!-- 
+      ↓をクリックすると、rss1reoad を true にし、rss1(RSS1.vue)の doupdate を true にし、
+      computed の load() をコールさせる
+    -->
+    <span @click="rss1reload = true" class="reload">rss1 reload now</span>
+    <!--
+      リロードが終了したら、rss1 から reloaded イベントが発火されるので、それを受けて、rss1reload を false に戻す
+      ※これやらないと無限にリロードする
+    -->
+    <rss1 :doupdate='rss1reload' @reloaded='rss1reload=false'></rss1>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+// importした変数名がタグとして使用可能
+// ここの場合、rss1 がhtmlのタグ（<rss1></rss1>）として使えるようになる
+import rss1 from '@/components/RSS1'
 
 export default {
   name: 'Screen1',
   data () {
     return {
-      msg: 'routing Screen1',
-      data: ''
+      rss1reload: false,
+      msg: 'routing Screen1'
     }
   },
-  created: function () {
-    this.test()
-  },
-  computed: {
-    sokuhou_json () {
-      if (this.data === '') {
-        return '<span>loding</span>'
-      } else {
-        return this.data.data.query.results.item
-      }
-    }
-  },
-  methods: {
-    test () {
-      axios.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D'http%3A%2F%2Fkancolle.doorblog.jp%2Findex.rdf'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys", {}).then((res) => {
-        this.data = res
-      })
-    }
-  }
+  components: { rss1 }
 }
 </script>
 
@@ -53,5 +46,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.reload {
+  color: red;
 }
 </style>
