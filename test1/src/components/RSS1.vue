@@ -5,7 +5,7 @@
     <ul>
       <template v-for='(item,index) in load'>
         <li :class="{odd:index % 2 === 0}">
-          <span style="font-inherit">{{new Date(item.date).toLocaleDateString()}} {{new Date(item.date).toLocaleTimeString()}}</span>
+          <span style="font-inherit">{{item.pubDate}}</span>
           <a :href='item.link'>{{item.title }}</a>
         </li>
       </template>
@@ -60,9 +60,10 @@ export default {
   methods: {
     requestRss () {
       return new Promise((resolve) => {
-        axios.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D'http%3A%2F%2Fkancolle.doorblog.jp%2Findex.rdf'&format=json", {}).then((res) => {
-          this.data = res.data.query.results.item
+        axios.get('https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Fkancolle.doorblog.jp%2Findex.rdf', {}).then((res) => {
+          this.data = res.data.items
           console.log('call requestRss()')
+          console.log(res)
           resolve(1)
         })
       })
