@@ -2,7 +2,14 @@
   <div class="hello">
     <h3>{{ msg }}</h3>
     <h3>{{ doupdate }}</h3>
-    <div v-html='load'></div>
+    <ul>
+      <template v-for='(item,index) in data'>
+        <li :class="{odd:index % 2 === 0}">
+          <span style="font-inherit">{{new Date(item.date).toLocaleDateString()}} {{new Date(item.date).toLocaleTimeString()}}</span>
+          <a :href='item.link'>{{item.title }}</a>
+        </li>
+      </template>
+    </ul>
   </div>
 </template>
 
@@ -17,6 +24,7 @@ export default {
   data () {
     return {
       msg: 'display rss1',
+      tmp: {color: 'blue'},
       data: ''
     }
   },
@@ -38,7 +46,7 @@ export default {
       if (this.data === '') {
         return '<span>loding</span>'
       } else {
-        return this.data.data.query.results.item
+        return this.data
       }
     }
   },
@@ -46,7 +54,7 @@ export default {
     requestRss () {
       return new Promise((resolve) => {
         axios.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D'http%3A%2F%2Fkancolle.doorblog.jp%2Findex.rdf'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys", {}).then((res) => {
-          this.data = res
+          this.data = res.data.query.results.item
           console.log('call requestRss()')
           resolve(1)
         })
@@ -71,14 +79,25 @@ h1, h2 {
   font-weight: normal;
 }
 ul {
-  list-style-type: none;
-  padding: 0;
+  list-style-type: disc;
+  text-align :left;
+  /* padding: 0; */
 }
 li {
-  display: inline-block;
+  /* display: inline-block; */
   margin: 0 10px;
+}
+span {
+  display: inline-block;
+  /* color: red; */
+  width: 10em;
+  font-size: 0.5em;
 }
 a {
   color: #42b983;
+}
+
+.odd {
+  background-color: floralwhite;
 }
 </style>
