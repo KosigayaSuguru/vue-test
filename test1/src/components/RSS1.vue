@@ -3,7 +3,7 @@
     <h3>{{ msg }}</h3>
     <h3>{{ doupdate }}</h3>
     <ul>
-      <template v-for='(item,index) in data'>
+      <template v-for='(item,index) in load'>
         <li :class="{odd:index % 2 === 0}">
           <span style="font-inherit">{{new Date(item.date).toLocaleDateString()}} {{new Date(item.date).toLocaleTimeString()}}</span>
           <a :href='item.link'>{{item.title }}</a>
@@ -33,21 +33,22 @@ export default {
     this.requestRss()
   },
   updated: function () {
-    // 親コンポーネントから渡されているprops.doupdteが変更された際にコールされるみたいなので
-    // （react の componentWillUpdate よろしく）
-    // 変更を検知して、再リクエスト
-    console.log(`call updated ${this.doupdate}`)
-    if (this.doupdate === true) {
-      console.log('call reload()')
-      // rssリクエスト
-      this.requestRss()
-      // コンポーネントの呼び出し元向けに reloaded イベントを発生させ、
-      // doupdate を v-bind して true にしている変数を false に戻させる
-      this.$emit('reloaded')
-    }
+    console.log(`call updated`)
   },
   computed: {
     load: function () {
+      // 親コンポーネントから渡されているprops.doupdteが変更された際にもコールされるので、変更を検知して再リクエスト
+      console.log(`doupdate : ${this.doupdate}`)
+
+      if (this.doupdate === true) {
+        console.log('call reload()')
+        // rssリクエスト
+        this.requestRss()
+        // コンポーネントの呼び出し元向けに reloaded イベントを発生させ、
+        // doupdate を v-bind して true にしている変数を false に戻させる
+        this.$emit('reloaded')
+      }
+
       if (this.data === '') {
         return '<span>loding</span>'
       } else {
