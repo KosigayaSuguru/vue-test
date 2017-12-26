@@ -32,20 +32,26 @@ export default {
     console.log('call created')
     this.requestRss()
   },
+  updated: function () {
+    // 親コンポーネントから渡されているprops.doupdteが変更された際にコールされるみたいなので
+    // （react の componentWillUpdate よろしく）
+    // 変更を検知して、再リクエスト
+    console.log(`call updated ${this.doupdate}`)
+    if (this.doupdate === true) {
+      console.log('call reload()')
+      // rssリクエスト
+      this.requestRss()
+      // コンポーネントの呼び出し元向けに reloaded イベントを発生させ、
+      // doupdate を v-bind して true にしている変数を false に戻させる
+      this.$emit('reloaded')
+    }
+  },
   computed: {
     load: function () {
-      if (this.doupdate === true) {
-        console.log('call reload()')
-        // rssリクエスト
-        this.requestRss()
-        // コンポーネントの呼び出し元向けに reloaded イベントを発生させ、
-        // doupdate を v-bind して true にしている変数を false に戻させる
-        this.$emit('reloaded')
-      }
-
       if (this.data === '') {
         return '<span>loding</span>'
       } else {
+        console.log('call computed:load()')
         return this.data
       }
     }
@@ -53,7 +59,7 @@ export default {
   methods: {
     requestRss () {
       return new Promise((resolve) => {
-        axios.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D'http%3A%2F%2Fkancolle.doorblog.jp%2Findex.rdf'&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys", {}).then((res) => {
+        axios.get("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20rss%20where%20url%3D'http%3A%2F%2Fkancolle.doorblog.jp%2Findex.rdf'&format=json", {}).then((res) => {
           this.data = res.data.query.results.item
           console.log('call requestRss()')
           resolve(1)
