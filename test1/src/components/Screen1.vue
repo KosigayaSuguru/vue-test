@@ -5,19 +5,19 @@
       ↓をクリックすると、rss1reoad を true にし、rss1(RSS1.vue)の doupdate を true にし、
       computed の load() をコールさせる
     -->
-    <span @click="rss1reload = true" class="reload">rss1 reload now</span>
+    <span @click="rss1reload = true" class="reload">RSS1 reload now</span>
     <!--
       リロードが終了したら、rss1 から reloaded イベントが発火されるので、それを受けて、rss1reload を false に戻す
       ※これやらないと無限にリロードする
     -->
-    <rss1 :doupdate='rss1reload' @reloaded='rss1reload=false'></rss1>
+    <RSS1 :doupdate='rss1reload' @reloaded='rss1reload=false'></RSS1>
   </div>
 </template>
 
 <script>
 // importした変数名がタグとして使用可能
-// ここの場合、rss1 がhtmlのタグ（<rss1></rss1>）として使えるようになる
-import rss1 from '@/components/RSS1'
+// ここの場合、rss1 がhtmlのタグ（<RSS1></RSS1>）として使えるようになる
+import RSS1 from '@/components/RSS1'
 
 export default {
   name: 'Screen1',
@@ -27,7 +27,7 @@ export default {
       msg: 'routing Screen1'
     }
   },
-  components: { rss1 }
+  components: { RSS1 }
 }
 </script>
 
