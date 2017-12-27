@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Bar from '@/components/Bar'
 import Screen1 from '@/components/Screen1'
+import Store from '@/components/Store'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/screen1',
       name: 'Screen1',
       component: Screen1
+    },
+    {
+      path: '/store',
+      name: 'Store',
+      component: Store
     }
   ]
 })
