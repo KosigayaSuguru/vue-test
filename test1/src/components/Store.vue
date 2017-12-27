@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1 @click='store_increment'>{{ get_store }}</h1>
+    <h1 @click='storeIncrement'>{{ get_store }}</h1>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     }
   },
   methods: {
-    store_increment () {
+    storeIncrement () {
       this.$store.commit('increment')
     }
   }
