@@ -2,16 +2,13 @@
   <div class="hello">
     <h2>{{ msg }}</h2>
     <!-- 
-      ↓をクリックすると、store(store.js) の state.screen1.rssReload を true にし、
-      rss1(RSS1.vue)の doupdate を true にして、computed の load() をコールさせる
+      ↓をクリックすると、store(store.js) の screen1Reload() が実行される
     -->
-    <span @click="screen1ReloadOn" class="reload">RSS1 reload now</span>
+    <span @click="screen1Reload" class="reload">RSS1 reload now</span>
     <!--
-      リロードが終了したら、rss1 から reloaded イベントが発火されるので、
-      それを受けて store(store.js) の state.screen1.rssReload を false に戻す
-      ※これやらないと無限にリロードする
+      screen1Reload() が実行された際に store.screen1.items が更新されるのでそのタイミングで子コンポーネントが再描画される
     -->
-    <RSS1 :doupdate='getScreen1Reload' @reloaded="screen1ReloadOff"></RSS1>
+    <RSS1 :items='getScreen1items'></RSS1>
   </div>
 </template>
 
@@ -28,17 +25,21 @@ export default {
       msg: 'routing Screen1'
     }
   },
+  created: function () {
+    console.log('screen1.vue created')
+    this.screen1Reload()
+  },
   computed: {
     // store内で定義されているgettersメソッドをコンポーネント内にマッピングする
     // ※これがないと、store.getters.xxxxみたいなのを一々書かないといけない
     // https://vuex.vuejs.org/ja/getters.html
-    ...mapGetters(['getScreen1Reload'])
+    ...mapGetters(['getScreen1items'])
   },
   methods: {
     // store内で定義されているactionsメソッドをコンポーネント内にマッピングする
     // ※これがないと、store.dispatch('xxxx')みたいなのを一々書かないといけない
     // https://vuex.vuejs.org/ja/actions.html
-    ...mapActions(['screen1ReloadOn', 'screen1ReloadOff'])
+    ...mapActions(['screen1Reload'])
   },
   components: { RSS1 }
 }
