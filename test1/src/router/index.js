@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Bar from '@/components/Bar'
 import Screen1 from '@/components/Screen1'
 import Store from '@/components/Store'
+import Image from '@/components/imageList/Image'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/store',
       name: 'Store',
       component: Store
+    },
+    {
+      path: '/image',
+      name: 'Image',
+      component: Image
     }
   ]
 })
