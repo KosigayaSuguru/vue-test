@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Screen1 from '@/components/Screen1'
 import Store from '@/components/Store'
 import Image from '@/components/imageList/Image'
+import Movie from '@/components/movieList/Movie'
 
 Vue.use(Router)
 
@@ -28,6 +29,11 @@ export default new Router({
       path: '/image',
       name: 'Image',
       component: Image
+    },
+    {
+      path: '/movie',
+      name: 'Movie',
+      component: Movie
     }
   ]
 })
