@@ -3,7 +3,7 @@
     <h3>{{ msg }}</h3>
     <ul>
       <template v-for='(item,index) in items'>
-        <li :class="{odd:index % 2 === 0}">
+        <li :class="{odd:index % 2 === 0}" :key='index'>
           <span style="font-inherit">{{item.pubDate}}</span>
           <a :href='item.link'>{{item.title }}</a>
         </li>
