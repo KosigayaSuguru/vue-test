@@ -7,6 +7,7 @@
     <router-link to="/Screen1" ref="screen1">Screen1</router-link>
     <router-link to="/Image" ref="image">Image</router-link>
     <router-link to="/Movie" ref="movie">Movie</router-link>
+    <router-link to="/Input" ref="input">Input</router-link>
     
     <router-view/>
   </div>

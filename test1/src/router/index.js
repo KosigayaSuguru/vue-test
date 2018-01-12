@@ -5,6 +5,7 @@ import Screen1 from '@/components/Screen1'
 import Store from '@/components/Store'
 import Image from '@/components/imageList/Image'
 import Movie from '@/components/movieList/Movie'
+import Input from '@/components/input/Input'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/movie',
       name: 'Movie',
       component: Movie
+    },
+    {
+      path: '/input',
+      name: 'Input',
+      component: Input
     }
   ]
 })
