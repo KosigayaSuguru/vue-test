@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     get_store () {
-      return `store.state.count (click me): ${this.$store.state.count}`
+      return `store.state.count (click me): ${this.$store.state.count.count}`
     }
   },
   methods: {
