@@ -3,13 +3,14 @@
     <h1>{{ msg }}</h1>
     <span style="display:inline-flex">
       input text1: 
-      <input-text-item type="text" elementName="text1" validateRule="^[0-9]+$" value="input to me" @updated-text1='updated' />
+      <input-text-item type="text" elementName="text1" :validateRule='getValidateRuleItem1' :value='getValueItem1' @updated-text1='updated' />
     </span>
   </div>
 </template>
 
 <script>
 import InputTextItem from '@/components/input/InputTextItem'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Input',
@@ -18,10 +19,14 @@ export default {
       msg: 'routing Input'
     }
   },
+  computed: {
+    ...mapGetters(['getValueItem1', 'getValidateRuleItem1'])
+  },
   methods: {
     updated (val) {
-      console.log(val)
-    }
+      this.setItem1(val)
+    },
+    ...mapActions(['setItem1'])
   },
   components: { InputTextItem }
 }

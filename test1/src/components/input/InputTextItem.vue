@@ -27,7 +27,7 @@ export default {
     let id = setTimeout(() => {
       console.log(this.val)
       this.validate()
-      this.$emit(this.updateEventName, { payload: this.val, valid: this.validated })
+      this.$emit(this.updateEventName, { value: this.val, valid: this.validated })
     }, 1000)
     this.timerId.shift()
     this.timerId.push(id)
