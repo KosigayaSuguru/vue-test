@@ -4,11 +4,14 @@
     <!-- 
       ↓をクリックすると、store(store.js) の screen1Reload() が実行される
     -->
-    <span @click="screen1Reload" class="reload">RSS1 reload now</span>
-    <!--
-      screen1Reload() が実行された際に store.screen1.items が更新されるのでそのタイミングで子コンポーネントが再描画される
-    -->
-    <RSS1 :items='getScreen1items'></RSS1>
+    <div v-if='isScreen1loading' class="loader loader-1"></div>
+    <template v-else>
+      <span @click="screen1Reload" class="reload">RSS1 reload now</span>
+      <!--
+        screen1Reload() が実行された際に store.screen1.items が更新されるのでそのタイミングで子コンポーネントが再描画される
+      -->
+      <RSS1 :items='getScreen1items'></RSS1>
+    </template>
   </div>
 </template>
 
@@ -33,7 +36,7 @@ export default {
     // store内で定義されているgettersメソッドをコンポーネント内にマッピングする
     // ※これがないと、store.getters.xxxxみたいなのを一々書かないといけない
     // https://vuex.vuejs.org/ja/getters.html
-    ...mapGetters(['getScreen1items'])
+    ...mapGetters(['getScreen1items', 'isScreen1loading'])
   },
   methods: {
     // store内で定義されているactionsメソッドをコンポーネント内にマッピングする
@@ -63,5 +66,45 @@ a {
 }
 .reload {
   color: red;
+}
+
+/* https://codepen.io/jonginwon/pen/emfFD */
+.loader {
+  position: relative;
+  display: inline-block;
+  margin: 0 12.5% 100px;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #0cf;
+  border-radius: 50%;
+  
+  animation: spin 0.75s infinite linear;
+}
+.loader::before,
+.loader::after {
+  left: -2px;
+  top: -2px;
+  display: none;
+  position: absolute;
+  content: '';
+  width: inherit;
+  height: inherit;
+  border: inherit;
+  border-radius: inherit;
+}
+
+/*
+ * LOADER 1
+ */
+.loader-1 {
+  border-top-width: 0;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>
