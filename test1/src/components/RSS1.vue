@@ -1,18 +1,21 @@
 <template>
   <div class="hello">
     <h3>{{ msg }}</h3>
-    <ul>
-      <template v-for='(item,index) in items'>
-        <li :class="{odd:index % 2 === 0}" :key='index'>
-          <span style="font-inherit">{{item.pubDate}}</span>
-          <a :href='item.link'>{{item.title }}</a>
-        </li>
-      </template>
-    </ul>
+      <transition-group name="staggered-fade" tag="ul" v-on:enter="listEnter" v-on:before-enter="listBeforeEnter" appear>
+        <template v-for='(item,index) in items'>
+          <li :class="{odd:index % 2 === 0}" :key='index' :data-index='index'>
+            <span style="font-inherit">{{item.pubDate}}</span>
+            <a :href='item.link'>{{item.title }}</a>
+          </li>
+        </template>
+      </transition-group>
   </div>
 </template>
 
 <script>
+// npm install --save velocity-animate
+import Velocity from 'velocity-animate'
+
 // 親コンポーネントから渡されている props.items が更新されると自動的に再描画される
 export default {
   name: 'rss1',
@@ -28,6 +31,23 @@ export default {
   },
   updated: function () {
     console.log(`rss1.vue updated`)
+  },
+  methods: {
+    listBeforeEnter (el) {
+      el.style.opacity = 0
+      el.style.height = 0
+    },
+    listEnter (el, done) {
+      // li の data-index に設定された値を取得してる
+      var delay = el.dataset.index * 20
+      setTimeout(function () {
+        Velocity(
+          el,
+          { opacity: 1, height: '1.6em' },
+          { complete: done }
+        )
+      }, delay)
+    }
   }
 }
 </script>
@@ -55,7 +75,6 @@ span {
 a {
   color: #42b983;
 }
-
 .odd {
   background-color: floralwhite;
 }
