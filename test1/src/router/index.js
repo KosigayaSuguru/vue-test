@@ -6,6 +6,7 @@ import Store from '@/components/Store'
 import Image from '@/components/imageList/Image'
 import Movie from '@/components/movieList/Movie'
 import Input from '@/components/input/Input'
+import InputConfirm from '@/components/input/InputConfirm'
 
 Vue.use(Router)
 
@@ -40,6 +41,11 @@ export default new Router({
       path: '/input',
       name: 'Input',
       component: Input
+    },
+    {
+      path: '/inputConfirm',
+      name: 'InputConfirm',
+      component: InputConfirm
     }
   ]
 })

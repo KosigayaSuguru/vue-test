@@ -1,23 +1,28 @@
 <template>
   <div>
-    <input :type='type' :name='elementName' v-model='val' />
-    <span v-if='!startup && validated'>ok</span>
-    <span v-else-if='!startup'>{{ validateRule }}</span>
+    <input :type='type' :name='elementName' v-model='val' :class='{ ok : isValidateOk(), ng : isValidateNg() }'/>
+    <span v-if='isValidateOk()'>ok</span>
+    <span v-else-if='isValidateNg()'>{{ validateRule }}</span>
   </div>
 </template>
 
 <script>
 export default {
   name: 'InputItem',
-  props: ['type', 'elementName', 'value', 'validateRule'],
+  props: ['type', 'elementName', 'value', 'validateRule', 'inputed'],
   data () {
     return {
       msg: 'InputItem',
       val: this.value,
       timerId: [],
-      startup: true,
+      startup: this.inputed, // 表示直後で何も入力されていない状態:true
       validated: false,
       updateEventName: 'updated-' + this.elementName
+    }
+  },
+  created: function () {
+    if (!this.startup) {
+      this.validate()
     }
   },
   updated: function () {
@@ -27,7 +32,7 @@ export default {
     let id = setTimeout(() => {
       console.log(this.val)
       this.validate()
-      this.$emit(this.updateEventName, { value: this.val, valid: this.validated })
+      this.$emit(this.updateEventName, { value: this.val, valid: this.validated, startup: this.startup })
     }, 1000)
     this.timerId.shift()
     this.timerId.push(id)
@@ -42,6 +47,18 @@ export default {
         this.validated = false
       }
       this.startup = false
+    },
+    isValidateOk () {
+      if (!this.startup && this.validated) {
+        return true
+      }
+      return false
+    },
+    isValidateNg () {
+      if (!this.isValidateOk() && !this.startup) {
+        return true
+      }
+      return false
     }
   }
 }
@@ -66,5 +83,11 @@ li {
 }
 a {
   color: #42b983;
+}
+input.ok {
+  background: aquamarine
+}
+input.ng {
+  background: lightpink
 }
 </style>

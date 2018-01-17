@@ -1,10 +1,27 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <span style="display:inline-flex">
-      input text1: 
-      <input-text-item type="text" elementName="text1" :validateRule='getValidateRuleItem1' :value='getValueItem1' @updated-text1='updated' />
-    </span>
+    <div>
+      <span style="display:inline-flex">
+        input text1: 
+        <input-text-item type="text" elementName="text1" :validateRule='getItem1.validateRule' :value='getItem1.value' :inputed='getItem1.startup' @updated-text1='updated1' />
+      </span>
+    </div>
+    <div>
+      <span style="display:inline-flex">
+        input text2: 
+        <input-text-item type="text" elementName="text2" :validateRule='getItem2.validateRule' :value='getItem2.value' :inputed='getItem2.startup' @updated-text2='updated2' />
+      </span>
+    </div>
+    <div style="padding-top:1em;">
+      <template v-if='isAllValidOk'>
+        <router-link to="/InputConfirm" ref="inputConfirm">ok</router-link>
+      </template>
+      <template v-else>
+        inputed invalid value.
+      </template>
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -20,13 +37,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getValueItem1', 'getValidateRuleItem1'])
+    ...mapGetters(['getItem1', 'getItem2', 'isAllValidOk'])
   },
   methods: {
-    updated (val) {
+    updated1 (val) {
       this.setItem1(val)
     },
-    ...mapActions(['setItem1'])
+    updated2 (val) {
+      this.setItem2(val)
+    },
+    ...mapActions(['setItem1', 'setItem2'])
   },
   components: { InputTextItem }
 }
