@@ -36,6 +36,21 @@ HtmlWebpackPluginを使う。
 
 [参照](https://github.com/KosigayaSuguru/vue-test/commit/673b95a38bb5e0863c791c87baf4f34ac5c3978f)  
 
+> 子コンポーネントの参照を取得する
+
+下記のような状況の時（Component1にref属性をつける）、
+```HTML
+<div id="app">
+    <Component1 ref="component1"></Component1>
+</div>
+```
+
+```javascript
+vm = new Vue(...略...)
+vm.$refs.component1.プロパティ名(※dataとかpropsのプロパティ名)
+```
+でアクセス可能。
+
 > RSSをJsonに変換する
 
 しかも↓にしてくれてるので自由にとれる。
